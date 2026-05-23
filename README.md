@@ -11,5 +11,5 @@ A simple command-line calculator written in Python. It supports basic arithmetic
 
 Run the script using Python:
 ```bash
-python main.py
+python main.py 
 ```
