@@ -9,7 +9,7 @@ A simple command-line calculator written in Python. It supports basic arithmetic
 
 ## Usage
 
-Run the script using Python:
+Run the script using Python: 
 ```bash
 python main.py 
 ```
