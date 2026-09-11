@@ -1,0 +1,68 @@
+name: Daily Project Maintenance
+
+on:
+  schedule:
+    # 9:17 PM IST = 15:47 UTC
+    - cron: "47 15 * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update maintenance report
+        shell: bash
+        run: |
+          set -e
+
+          DATE="$(date -u '+%Y-%m-%d')"
+          TIME="$(date -u '+%H:%M UTC')"
+
+          if [ -f MAINTENANCE.md ]; then
+            {
+              echo ""
+              echo "## ${DATE}"
+              echo ""
+              echo "- Automated maintenance check completed at ${TIME}."
+              echo "- Repository: Calculator-Updated-CLI"
+              echo "- Default branch: main"
+            } >> MAINTENANCE.md
+          else
+            cat > MAINTENANCE.md <<EOF
+          # Project Maintenance Log
+
+          This file records routine automated repository maintenance.
+
+          ## ${DATE}
+
+          - Automated maintenance check completed at ${TIME}.
+          - Repository: Calculator-Updated-CLI
+          - Default branch: main
+          EOF
+          fi
+
+      - name: Commit maintenance update
+        shell: bash
+        run: |
+          set -e
+
+          git config user.name "MSameer7-tech"
+          git config user.email "178931243+MSameer7-tech@users.noreply.github.com"
+
+          git add MAINTENANCE.md
+
+          if git diff --cached --quiet; then
+            echo "No maintenance changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: update project maintenance log"
+          git push
