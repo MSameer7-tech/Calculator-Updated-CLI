@@ -36,17 +36,17 @@ jobs:
               echo "- Default branch: main"
             } >> MAINTENANCE.md
           else
-            cat > MAINTENANCE.md <<EOF
-          # Project Maintenance Log
-
-          This file records routine automated repository maintenance.
-
-          ## ${DATE}
-
-          - Automated maintenance check completed at ${TIME}.
-          - Repository: Calculator-Updated-CLI
-          - Default branch: main
-          EOF
+            {
+              echo "# Project Maintenance Log"
+              echo ""
+              echo "This file records routine automated repository maintenance."
+              echo ""
+              echo "## ${DATE}"
+              echo ""
+              echo "- Automated maintenance check completed at ${TIME}."
+              echo "- Repository: Calculator-Updated-CLI"
+              echo "- Default branch: main"
+            } > MAINTENANCE.md
           fi
 
       - name: Commit maintenance update
